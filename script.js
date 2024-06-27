@@ -1,10 +1,9 @@
-const teamName = document.getElementById("team");
-const typeOfSport = document.getElementById("sport");
-const worldCupYear = document.getElementById("year");
-const headCoach = document.getElementById("head-coach");
-const playerCards = document.getElementById("player-cards");
-const playersDropdownList = document.getElementById("players");
-
+const teamName = document.getElementById("team"); //used to display the team name.
+const typeOfSport = document.getElementById("sport"); //used to display the sport team.
+const worldCupYear = document.getElementById("year"); //used to display the year the team played.
+const headCoach = document.getElementById("head-coach"); //used to display the head-coach of the team.
+const playerCards = document.getElementById("player-cards"); //used to display the info of the players.
+const playersDropdownList = document.getElementById("players"); //used for dropdown for the user to choose filter needed.
 const myFavoriteFootballTeam = {
   team: "Argentina",
   sport: "Football",
@@ -173,9 +172,9 @@ const myFavoriteFootballTeam = {
 };
 
 Object.freeze(myFavoriteFootballTeam);
-const { sport, team, year, players } = myFavoriteFootballTeam;
-const { coachName } = myFavoriteFootballTeam.headCoach;
-
+const { sport, team, year, players } = myFavoriteFootballTeam; //destructuring assignment is used to store the values.
+const { coachName } = myFavoriteFootballTeam.headCoach; //we are using destructing again for coachName as it is present in the object which is within the main object. so we have to use myFavoriteFootballTeam.headCoach
+//we are displaying our team info now.
 typeOfSport.textContent = sport;
 teamName.textContent = team;
 worldCupYear.textContent = year;
@@ -184,6 +183,7 @@ headCoach.textContent = coachName;
 const setPlayerCards = (arr = players) => {
   playerCards.innerHTML += arr
     .map(
+      //here the parameters are taken from arr using destructuring assignment.
       ({ name, position, number, isCaptain, nickname }) =>
         `
         <div class="player-card">
@@ -203,23 +203,28 @@ playersDropdownList.addEventListener("change", (e) => {
   switch (e.target.value) {
     case "nickname":
       setPlayerCards(players.filter((player) => player.nickname !== null));
+      //in this filter the player is passed as parameter and inside the function if the the player has a nickname then players' info will be displayed or else the player's info name will not be displayed.
       break;
     case "forward":
       setPlayerCards(players.filter((player) => player.position === "forward"));
+      //this filter checks out the position property and if it is equal to forward then the players' info is displayed.
       break;
     case "midfielder":
       setPlayerCards(
         players.filter((player) => player.position === "midfielder")
+        //this filter checks out the position property and if it is equal to midfielder then the players' info is displayed.
       );
       break;
     case "defender":
       setPlayerCards(
         players.filter((player) => player.position === "defender")
+        //this filter checks out the position property and if it is equal to defender then the player's info is displayed.
       );
       break;
     case "goalkeeper":
       setPlayerCards(
         players.filter((player) => player.position === "goalkeeper")
+        //this filter checks out the position property and if it is equal to goalkeeper then the player's info is displayed.
       );
       break;
 
@@ -227,3 +232,8 @@ playersDropdownList.addEventListener("change", (e) => {
       setPlayerCards();
   }
 });
+
+/* The Object.freeze() static method freezes an object. Freezing an object prevents extensions and makes existing properties non-writable and non-configurable. A frozen object can no longer be changed: new properties cannot be added, existing properties cannot be removed, their enumerability, configurability, writability, or value cannot be changed, and the object's prototype cannot be re-assigned. freeze() returns the same object that was passed in.
+Freezing an object is the highest integrity level that JavaScript provides.
+
+The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.*/
